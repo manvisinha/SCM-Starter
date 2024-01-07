@@ -53,25 +53,25 @@ export default function HomePage() {
     setATM(atmContract);
   }
 
-  const getBalance = async() => {
+  const getAnswer = async() => {
     if (atm) {
-      setBalance((await atm.getBalance()).toNumber());
+      setBalance((await atm.getAnswer()).toNumber());
     }
   }
 
-  const deposit = async() => {
+  const sum = async() => {
     if (atm) {
-      let tx = await atm.deposit(1);
+      let tx = await atm.arraySum([17, 16, 14, 98]);
       await tx.wait()
-      getBalance();
+      getAnswer();
     }
   }
 
-  const withdraw = async() => {
+  const product = async() => {
     if (atm) {
-      let tx = await atm.withdraw(1);
+      let tx = await atm.arrayProduct([17, 9, 23, 19]);
       await tx.wait()
-      getBalance();
+      getAnswer();
     }
   }
 
@@ -87,15 +87,15 @@ export default function HomePage() {
     }
 
     if (balance == undefined) {
-      getBalance();
+      getAnswer();
     }
 
     return (
       <div>
         <p>Your Account: {account}</p>
-        <p>Your Balance: {balance}</p>
-        <button onClick={deposit}>Deposit 1 ETH</button>
-        <button onClick={withdraw}>Withdraw 1 ETH</button>
+        <p>Your Answer: {balance}</p>
+        <button onClick={sum}>Sum of Array</button>
+        <button onClick={product}>Product of Array</button>
       </div>
     )
   }
@@ -104,7 +104,9 @@ export default function HomePage() {
 
   return (
     <main className="container">
-      <header><h1>Welcome to the Metacrafters ATM!</h1></header>
+      <header><h1>Welcome to the Metacrafters Array Operations!</h1></header>
+      <p>Sum of Array returns the sum of each element in the array. For eg.: [17, 16, 14, 98]</p>
+      <p>Product of Array returns the product of each element in the array. For eg: [17, 9, 23, 19]</p>
       {initUser()}
       <style jsx>{`
         .container {
